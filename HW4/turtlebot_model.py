@@ -49,7 +49,7 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
                         [(-np.cos(theta+om*dt)+np.cos(theta))/om      , V*(dt*om*np.sin(theta+dt*om)+np.cos(theta+dt*om)-np.cos(theta))/om**2 ],
                         [0                                      , dt                                                                    ] ])
         Gx = np.array([ [ 1 , 0 , V*(np.cos(theta+dt*om)-np.cos(theta))/om  ],
-                        [ 0 , 1 , V*(np.sin(theta+dt*om)+np.sin(theta))/om  ],
+                        [ 0 , 1 , V*(np.sin(theta+dt*om)-np.sin(theta))/om  ],
                         [ 0 , 0 , 1                                         ]])
     ## PROBLEM 1 PART ii
 
