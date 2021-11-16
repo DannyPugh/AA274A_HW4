@@ -42,10 +42,10 @@ class Ekf(object):
         ########## Code starts here ##########
         # TODO: Update self.x, self.Sigma.
 
-        # ## PROBLEM 1 PART iii
-        # self.x = g
-        # self.Sigma = Gx*self.Sigma*Gx.T + dt*Gu*self.R*Gu.T
-        # ## PROBLEM 1 PART iii
+        ## PROBLEM 1 PART iii
+        self.x = g
+        self.Sigma = Gx*self.Sigma*Gx.T + dt*Gu*self.R*Gu.T
+        ## PROBLEM 1 PART iii
         
 
         ########## Code ends here ##########
