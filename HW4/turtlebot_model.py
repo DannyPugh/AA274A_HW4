@@ -28,7 +28,7 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
     x,y,theta = xvec[:]
 
 
-    g_LIMIT = np.array([V*dt*np.cos(theta),V*dt*np.sin(theta),theta])
+    g_LIMIT = np.array([V*dt*np.cos(theta)+x,V*dt*np.sin(theta)+y,theta])
     Gx_LIMIT = np.array([[1, 0,  -dt*V*np.sin(theta) ],
                         [0, 1,  dt*V*np.cos(theta)  ],
                         [0, 0,  1                   ]])
