@@ -181,7 +181,7 @@ class MonteCarloLocalization(ParticleFilter):
         #       not call tb.compute_dynamics. You need to compute the idxs
         #       where abs(om) > EPSILON_OMEGA and the other idxs, then do separate 
         #       updates for them
-
+        tb.compute_dynamics(self.xs, us, dt, compute_jacobians=False)
 
         ########## Code ends here ##########
 

@@ -1,5 +1,5 @@
 import numpy as np
-from ExtractLines import FitLine
+from .ExtractLines import FitLine
 
 LineExtractionParams = {'MIN_SEG_LENGTH': 0.1,             # minimum length of each line segment (m)
                         'LINE_POINT_DIST_THRESHOLD': 0.20, # max distance of pt from line to split

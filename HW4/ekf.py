@@ -42,6 +42,11 @@ class Ekf(object):
         ########## Code starts here ##########
         # TODO: Update self.x, self.Sigma.
 
+        # ## PROBLEM 1 PART iii
+        # self.x = g
+        # self.Sigma = Gx*self.Sigma*Gx.T + dt*Gu*self.R*Gu.T
+        # ## PROBLEM 1 PART iii
+        
 
         ########## Code ends here ##########
 
@@ -134,7 +139,7 @@ class EkfLocalization(Ekf):
 
         ########## Code starts here ##########
         # TODO: Compute g, Gx, Gu using tb.compute_dynamics().
-
+        g, Gx, Gu = tb.compute_dynamics(self.x, u, dt)
 
         ########## Code ends here ##########
 

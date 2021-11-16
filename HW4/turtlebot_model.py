@@ -21,7 +21,37 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
     # HINT: Since theta is changing with time, try integrating x, y wrt d(theta) instead of dt by introducing om
     # HINT: When abs(om) < EPSILON_OMEGA, assume that the theta stays approximately constant ONLY for calculating the next x, y
     #       New theta should not be equal to theta. Jacobian with respect to om is not 0.
+    
+    ## PROBLEM 1 PART i
 
+    V,om = u[:]
+    x,y,theta = xvec[:]
+
+
+    g_LIMIT = np.array([V*dt*np.cos(theta),V*dt*np.sin(theta),theta])
+    Gx_LIMIT = np.array([1, 0,  -dt*V*np.sin(theta) ],
+                        [0, 1,  dt*V*np.cos(theta)  ],
+                        [0, 0,  1                   ])
+    Gu_LIMIT = np.array([dt*np.cos(theta),(-1/2)*dt**2*V*np.sin(theta)],
+                        [dt*np.sin(theta),(1/2)*dt**2*V*np.cos(theta)],
+                        [0,dt])
+    
+    
+    if np.abs(om) < EPSILON_OMEGA:
+        g = g_LIMIT
+        Gx = Gx_LIMIT
+        Gu = Gu_LIMIT
+    else:
+        g = np.array([  V*(np.sin(theta+om*dt)-np.sin(theta))/om    + x, 
+                        -V*(np.cos(theta+om*dt)-np.cos(theta))/om   + y, 
+                        om*dt                                       + theta ])
+        Gu = np.array([ [(np.sin(theta+om*dt)+np.sin(theta))/om , V*(dt*om*np.cos(theta+om*dt)-np.sin(theta+dt*om)+np.sin(theta))/om**2 ], 
+                        [(-np.cos(theta+om*dt)+np.cos(theta))/om      , V*(dt*om*np.sin(theta+dt*om)+np.cos(theta+dt*om)-np.cos(theta))/om**2 ],
+                        [0                                      , dt                                                                    ] ])
+        Gx = np.array([ [ 1 , 0 , V*(np.cos(theta+dt*om)-np.cos(theta))/om  ],
+                        [ 0 , 1 , V*(np.sin(theta+dt*om)+np.sin(theta))/om  ],
+                        [ 0 , 0 , 1                                         ]])
+    ## PROBLEM 1 PART ii
 
     ########## Code ends here ##########
 
