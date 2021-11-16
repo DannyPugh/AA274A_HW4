@@ -44,8 +44,8 @@ class Ekf(object):
 
         ## PROBLEM 1 PART iii
         self.x = g
-        print(Gx.shape())
-        print(Gu.shape())
+        print(np.shape(Gx))
+        print(np.shape(Gu))
         self.Sigma = Gx*self.Sigma*Gx.T + dt*Gu*self.R*Gu.T
         ## PROBLEM 1 PART iii
         
