@@ -46,7 +46,7 @@ class Ekf(object):
         self.x = g
         print(np.shape(Gx))
         print(np.shape(Gu))
-        self.Sigma = np.matmul(np.matmul(Gx*self.Sigma)*Gx.T) + dt*np.matmul(np.matmul(Gu*self.R)*Gu.T)
+        self.Sigma = np.matmul(np.matmul(Gx,self.Sigma),Gx.T) + dt*np.matmul(np.matmul(Gu,self.R),Gu.T)
         ## PROBLEM 1 PART iii
         
 
