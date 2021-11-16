@@ -45,7 +45,7 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
         g = np.array([[  V*(np.sin(theta+om*dt)-np.sin(theta))/om    + x, 
                         -V*(np.cos(theta+om*dt)-np.cos(theta))/om   + y, 
                         om*dt                                       + theta ]])
-        Gu = np.array([ [(np.sin(theta+om*dt)+np.sin(theta))/om , V*(dt*om*np.cos(theta+om*dt)-np.sin(theta+dt*om)+np.sin(theta))/om**2 ], 
+        Gu = np.array([ [(np.sin(theta+om*dt)-np.sin(theta))/om , V*(dt*om*np.cos(theta+om*dt)-np.sin(theta+dt*om)+np.sin(theta))/om**2 ], 
                         [(-np.cos(theta+om*dt)+np.cos(theta))/om      , V*(dt*om*np.sin(theta+dt*om)+np.cos(theta+dt*om)-np.cos(theta))/om**2 ],
                         [0                                      , dt                                                                    ] ])
         Gx = np.array([ [ 1 , 0 , V*(np.cos(theta+dt*om)-np.cos(theta))/om  ],
