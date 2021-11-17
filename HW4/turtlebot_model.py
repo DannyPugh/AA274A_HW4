@@ -25,7 +25,9 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
     ## PROBLEM 1 PART i
 
     V,om = u[:]
+    print(xvec)
     x,y,theta = xvec[:]
+
 
 
     g_LIMIT = np.array([V*dt*np.cos(theta)+x,V*dt*np.sin(theta)+y,theta])
