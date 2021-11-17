@@ -44,9 +44,9 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
         Gx = Gx_LIMIT
         Gu = Gu_LIMIT
     else:
-        g = np.array([[  V*(np.sin(theta+om*dt)-np.sin(theta))/om    + x, 
+        g = np.array([  V*(np.sin(theta+om*dt)-np.sin(theta))/om    + x, 
                         -V*(np.cos(theta+om*dt)-np.cos(theta))/om   + y, 
-                        om*dt                                       + theta ]])
+                        om*dt                                       + theta ])
         Gu = np.array([ [(np.sin(theta+om*dt)-np.sin(theta))/om , V*(dt*om*np.cos(theta+om*dt)-np.sin(theta+dt*om)+np.sin(theta))/om**2 ], 
                         [(-np.cos(theta+om*dt)+np.cos(theta))/om      , V*(dt*om*np.sin(theta+dt*om)+np.cos(theta+dt*om)-np.cos(theta))/om**2 ],
                         [0                                      , dt                                                                    ] ])
