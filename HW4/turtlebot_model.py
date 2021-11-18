@@ -25,7 +25,6 @@ def compute_dynamics(xvec, u, dt, compute_jacobians=True):
     ## PROBLEM 1 PART i
 
     V,om = u[:]
-    print(xvec)
     x,y,theta = xvec[:]
 
 
@@ -87,9 +86,18 @@ def transform_line_to_scanner_frame(line, x, tf_base_to_camera, compute_jacobian
     #       a camera frame with origin at x_cam, y_cam rotated by th_cam wrt to the world frame
     # HINT: What is the projection of the camera location (x_cam, y_cam) on the line r? 
     # HINT: To find Hx, write h in terms of the pose of the base in world frame (x_base, y_base, th_base)
+    def mat_rot(theta):
+        rotation_matrix = np.array[ [np.cos(theta), -np.sin(theta), 0],
+                                    [np.sin(theta),  np.cos(theta), 0],
+                                    [0            ,  0            , 1]]
+        return rotation_matrix
 
+    
+
+    
 
     ########## Code ends here ##########
+
 
     if not compute_jacobian:
         return h
