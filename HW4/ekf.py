@@ -212,6 +212,7 @@ class EkfLocalization(Ekf):
         #       if the minimum distance satisfies the gating criteria, add corresponding entries to v_list, Q_list, H_list
 
 
+
         ########## Code ends here ##########
 
         return v_list, Q_list, H_list
@@ -234,7 +235,7 @@ class EkfLocalization(Ekf):
             ########## Code starts here ##########
             # TODO: Compute h, Hx using tb.transform_line_to_scanner_frame() for the j'th map line.
             # HINT: This should be a single line of code.
-
+            h, Hx = tb.transform_line_to_scanner_frame(self.map_lines[j],self.x,self.tf_base_to_camera)
 
             ########## Code ends here ##########
 
