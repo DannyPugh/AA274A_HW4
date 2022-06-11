@@ -86,16 +86,55 @@ def transform_line_to_scanner_frame(line, x, tf_base_to_camera, compute_jacobian
     #       a camera frame with origin at x_cam, y_cam rotated by th_cam wrt to the world frame
     # HINT: What is the projection of the camera location (x_cam, y_cam) on the line r? 
     # HINT: To find Hx, write h in terms of the pose of the base in world frame (x_base, y_base, th_base)
-    def mat_rot(theta):
-        rotation_matrix = np.array[ [np.cos(theta), -np.sin(theta), 0],
+    
+    #definition for rotation where theta is the angle from the old frame to the new frame (CCW +)
+    def mat_Rot(theta):
+        rotation_Matrix = np.array( [[np.cos(theta), -np.sin(theta), 0],
                                     [np.sin(theta),  np.cos(theta), 0],
-                                    [0            ,  0            , 1]]
-        return rotation_matrix
-
+                                    [0            ,  0            , 1]])
+        return rotation_Matrix
     
+    #calculate pose of camera in the world frame
 
+    #unpack pose of camera with respect to base
+    x_cam_b = tf_base_to_camera[0]
+    y_cam_b = tf_base_to_camera[1]
+    theta_cam_b = tf_base_to_camera[2]
+
+    # unpack pose of base
+    x_base = x[0]
+    y_base = x[1]
+    theta_base = x[2]
+       
+    #first step is rotate camera into robot frame
+    camera_robot = np.matmul(mat_Rot(theta_base), tf_base_to_camera)
+    #second step is add camera offset to robot pose to find camera pose
+    tf_world_to_camera  = camera_robot + x 
+
+    #unpack elements of  camera in world frame
+    x_cam_w = tf_world_to_camera[0]
+    y_cam_w = tf_world_to_camera[1]
+    theta_cam_w = tf_world_to_camera[2]
     
+    #r_camera is the perpendicular distance from the camera to the line
+    #r_camera = r + offset 
+    # calculate offset as the change in distance in the "x" direction (alpha frame) of camera coordinates (world frame) in alpha frame
+    #note this requires finding the x-coordinate of xcam,ycam in the alpha frame and then finding the distance from the origin (0 - x_cam_alpha)
+    offset = 0 - np.matmul(mat_Rot(-alpha), tf_world_to_camera)[0]
+    r_cam = r + offset
 
+    #alpha_camera is the angle of the alpha frame from the camera frame (angle of the r vector from the camera frame)
+    alpha_cam = alpha - theta_cam_w
+
+    #build h vector
+    h = np.array([alpha_cam, r_cam])
+
+    #build Jacobian
+    Hx = np.array([
+        [0, 0, -1],
+        [-np.cos(-alpha), np.sin(-alpha), np.cos(-alpha)*x_cam_b*np.sin(theta_base)+np.cos(-alpha)*y_cam_b*np.cos(theta_base)+np.sin(-alpha)*x_cam_b*np.cos(theta_base)-np.sin(-alpha)*y_cam_b*np.sin(theta_base)],
+    ])
+    
     ########## Code ends here ##########
 
 
@@ -103,7 +142,6 @@ def transform_line_to_scanner_frame(line, x, tf_base_to_camera, compute_jacobian
         return h
 
     return h, Hx
-
 
 def normalize_line_parameters(h, Hx=None):
     """

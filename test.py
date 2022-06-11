@@ -1,0 +1,6 @@
+import validate_ekf as v
+v.validate_localization_transition_model()
+v.validate_ekf_transition_update()
+v.validate_localization_compute_predicted_measurements()
+v.validate_localization_compute_innovations()
+v.validate_ekf_localization()
